@@ -88,6 +88,18 @@
 					<section>
 						<img width="921" height="616" data-src="./images/architecture.svg" alt="Architecture"/>
 					</section>
+					<section>
+						<h2>Existing PMDAs</h2>
+						<p><span class="fragment">activemq, </span><span class="fragment">apache, </span></p>
+						<p><span class="fragment">bonding, </span><span class="fragment">ds389, </span></p>
+						<p><span class="fragment">gluster, </span><span class="fragment">postgresql, </span></p>
+						<p><span class="fragment">papi, </span><span class="fragment">mysql, </span></p>
+						<p><span class="fragment">postfix, </span><span class="fragment">named, </span></p>
+						<p><span class="fragment">samba, </span><span class="fragment">linux, </span></p>
+						<p><span class="fragment">linux_proc, </span><span class="fragment">elasticsearch, </span></p>
+						<p><span class="fragment">json, </span><span class="fragment">systemtap, </span></p>
+						<p><span class="fragment">...</span></p>
+					</section>
 				</section>
 
 				<section>
@@ -126,6 +138,9 @@ Performance Co-Pilot configuration on marquez.int.rhx:
 					</section>
 				</section>
 				<section>
+					<section>
+						<h2>Usage</h2>
+					</section>
 					<section>
 						<h2>pminfo</h2>
 						<span class="fragment">
@@ -196,7 +211,7 @@ samples:   all
 							</code></pre>
 						</span>
 						<p class="fragment">
-						Configuration in <em>/etc/pcp/pmlogger</em>. Default collection interval for
+						Configuration in <em>/etc/pcp/pmlogger</em>. Default collection interval
 						is 1 minute.
 						</p>
 						<p class="fragment">
@@ -347,15 +362,59 @@ network.ip.inreceives > 10 count/sec -> shell \
 				</section>
 
 				<section>
-					<h2>Containers</h2>
-					<p>
-					</p>
+					<section>
+						<h2>Containers</h2>
+						<p class="fragment">
+						Use the <em>--container</em> option to specify if a metric is to be fetched from
+						a container.
+						</p>
+						<p class="fragment">
+						There is no need to install any PCP components inside the container.
+						</p>
+					</section>
+					<section>
+						<span class="fragment">
+							<pre><code class="bash">
+# pminfo --fetch containers.name containers.state.running
+containers.name
+    inst [0 or "f4d3b90bea15..."] value "sharp_feynman"
+    inst [1 or "d43eda0a7e7d..."] value "cranky_colden"
+containers.state.running
+    inst [0 or "f4d3b90bea15..."] value 1
+    inst [1 or "d43eda0a7e7d..."] value 0
+
+# pmprobe -I network.interface.up
+network.interface.up 5 "p2p1" "wlp2s0" "lo" "docker0" "veth2"
+
+# pmprobe -I --container sharp_feynman network.interface.up
+network.interface.up 2 "lo" "eth0"
+							</code></pre>
+						</span>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Upcoming</h2>
+					</section>
+					<section>
+						<h2>JSON interface</h2>
+						<img data-src="./images/arduino-pcp2.png" alt="json-pcp"/>
+					</section>
+					<section>
+						<h2>Vector</h2>
+						<img data-src="./images/vector.png" alt="vector-pcp"/>
+					</section>
+					<section>
+						<img data-src="./images/screenshot.png" alt="vector-screenshot"/>
+					</section>
 				</section>
 
-				<section style="text-align: left;">
-					<h1>THE END</h1>
+				<section>
+					<h1>Questions?</h1>
 					<p>
-						- <a href="http://pcp.io">Try the online editor</a> <br>
+						<a href="email:pcp@oss.sgi.com">pcp@oss.sgi.com</a> <br>
+						<a href="http://pcp.io">http://pcp.io</a> <br>
+						<a href="http://twitter.com/performancepcp">@performancepcp</a>
 					</p>
 				</section>
 
