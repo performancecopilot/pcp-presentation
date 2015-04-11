@@ -81,7 +81,7 @@
 						<ul>
 							<li class="fragment">pmcd - Performance Metrics Collector Daemon</li>
 							<li class="fragment">pmdas - Performance Metrics Domain Agents</li>
-							<li class="fragment">Metrics</li>
+							<li class="fragment">pmns - Performance Metrics Name Space</li>
 							<li class="fragment">Clients</li>
 						</ul>
 					</section>
@@ -140,6 +140,24 @@ Performance Co-Pilot configuration on marquez.int.rhx:
 				<section>
 					<section>
 						<h2>Usage</h2>
+					</section>
+					<section>
+						<h2>pminfo</h2>
+						<p class="fragment">Displays information about performance metrics</p>
+						<span class="fragment">
+							<pre><code class="bash">
+# pminfo | head -n3
+cgroup.blkio.all.io_merged.async
+cgroup.blkio.all.io_merged.read
+cgroup.blkio.all.io_merged.sync
+							</pre></code>
+						</span>
+						<span class="fragment">
+							<pre><code class="bash">
+# pminfo | wc -l
+1618
+							</pre></code>
+						</span>
 					</section>
 					<section>
 						<h2>pminfo</h2>
@@ -221,7 +239,7 @@ samples:   all
 					<section>
 						<h2>Historical Data</h2>
 						<p class="fragment">
-							Most tools can work with archive files directly Collect data over time via the <em>-a &lt;archive_file&gt;</em>
+							Most tools can work with archive files directly via the <em>-a &lt;archive_file&gt;</em>
 							option.
 						</p>
 						<span class="fragment">
@@ -247,7 +265,7 @@ interval:  600.00 sec
 					<section>
 						<h2>Historical Data</h2>
 						<p class="fragment">
-							pmdiff (*pwtf) can be used to find metrics that changed by a certain factor in one or two archives.
+							pmdiff (*pmwtf) can be used to find metrics that changed by a certain factor in one or two archives.
 						</p>
 						<span class="fragment">
 							<pre><code class="bash">
@@ -394,7 +412,7 @@ network.interface.up 2 "lo" "eth0"
 				</section>
 				<section>
 					<section>
-						<h2>Upcoming</h2>
+						<h2>Other</h2>
 					</section>
 					<section>
 						<h2>JSON interface</h2>
@@ -406,6 +424,10 @@ network.interface.up 2 "lo" "eth0"
 					</section>
 					<section>
 						<img data-src="./images/screenshot.png" alt="vector-screenshot"/>
+					</section>
+					<section>
+						<h2><a href="http://cockpit-project.org/">Cockpit</a></h2>
+						<img data-src="./images/screenshot-storage.png" alt="cockpit"/>
 					</section>
 				</section>
 
