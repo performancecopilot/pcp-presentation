@@ -60,7 +60,7 @@
 					<ul>
 						<li class="fragment">Framework for system-level performance analysis</li>
 						<li class="fragment">Collection, monitoring, and analysis of system metrics</li>
-						<li class="fragment">Uses a Distributed architecture</li>
+						<li class="fragment">Uses a distributed architecture</li>
 						<li class="fragment">Provides a full API (C, Python, Perl)</li>
 						<li class="fragment">Easily extendible and flexible</li>
 					</ul>
@@ -107,11 +107,11 @@
 						<h2>Installation</h2>
 						<span class="fragment">
 							<p>On RHEL/Fedora based systems:</p>
-							<pre><code># yum install pcp</pre></code>
+							<pre><code># yum install pcp pcp-webjs* pcp-webapi*</pre></code>
 						</span>
 						<span class="fragment">
 							<p>On Debian(*) based systems:</p>
-							<pre><code># apt-get install pcp</pre></code>
+							<pre><code># apt-get install pcp pcp-webapi*</pre></code>
 						</span>
 					</section>
 					<section>
@@ -359,8 +359,7 @@ In [10]: net_in.plot()
 
 				<section>
 					<section>
-						<h2>PMIE</h2>
-						<p class="fragment">Inference Engine for Performance Metrics</p>
+						<h2>Performance Metrics Inference Engine</h2>
 						<ul>
 							<li class="fragment">An inference engine that can evaluate rules and generate alarms or automate system management tasks</li>
 							<li class="fragment">Rules have actions attached to them. (e.g. generate an alarm, create a log entry, run a script)</li>
@@ -368,7 +367,7 @@ In [10]: net_in.plot()
 						</ul>
 					</section>
 					<section>
-						<h2>PMIE</h2>
+						<h2>Performance Metrics Inference Engine</h2>
 						<span class="fragment">
 							<pre><code class="bash">
 # systemctl enable pmie
