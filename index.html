@@ -205,6 +205,16 @@ rtnl_link_stats64)
 						</span>
 					</section>
 					<section>
+						<h2>pmstore</h2>
+						<p class="fragment">PMDAs do not only pull information</p>
+						<p class="fragment">PMDAs can also dynamically get data pushed on them</p>
+						<span class="fragment">
+							<pre><code class="bash">
+# pmstore hotproc.control.config 'fname = "java"
+							</pre></code>
+						</span>
+					</section>
+					<section>
 						<h2>pmval</h2>
 						<pre><code class="bash">
 # pmval mem.freemem
@@ -280,11 +290,11 @@ interval:  600.00 sec
 					<section>
 						<h2>Historical Data</h2>
 						<p class="fragment">
-							pmdiff (*pmwtf) can be used to find metrics that changed by a certain factor in one or two archives.
+							pmdiff can be used to find metrics that changed by a certain factor in one or two archives.
 						</p>
 						<span class="fragment">
 							<pre><code class="bash">
-# /usr/libexec/pcp/bin/pmwtf -q 50 \
+# /usr/bin/pmdiff -q 50 \
   /var/log/pcp/pmlogger/root.acksyn.org/20150408 \
   /var/log/pcp/pmlogger/root.acksyn.org/20150409  
 Ratio Threshold: > 50.00 or < 0.020
