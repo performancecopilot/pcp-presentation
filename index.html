@@ -52,10 +52,6 @@
 				</section>
 
 				<section>
-					<h2>Who in the audience has heard of or used Performance Co-Pilot?</h2>
-				</section>
-
-				<section>
 					<h2>What is Performance Co-Pilot?</h2>
 					<ul>
 						<li class="fragment">Framework for system-level performance analysis</li>
@@ -90,14 +86,13 @@
 					</section>
 					<section>
 						<h2>Existing PMDAs</h2>
-						<p><span class="fragment">activemq, </span><span class="fragment">apache, </span></p>
-						<p><span class="fragment">bonding, </span><span class="fragment">ds389, </span></p>
-						<p><span class="fragment">gluster, </span><span class="fragment">postgresql, </span></p>
-						<p><span class="fragment">papi, </span><span class="fragment">mysql, </span></p>
-						<p><span class="fragment">postfix, </span><span class="fragment">named, </span></p>
-						<p><span class="fragment">samba, </span><span class="fragment">linux, </span></p>
-						<p><span class="fragment">linux_proc, </span><span class="fragment">elasticsearch, </span></p>
-						<p><span class="fragment">json, </span><span class="fragment">systemtap, </span></p>
+						<p><span class="fragment">activemq, </span><span class="fragment">apache, </span><span class="fragment">ds389, </span></p>
+						<p><span class="fragment">elasticsearch, </span><span class="fragment">freebsd, </span><span class="fragment">nginx, </span></p>
+						<p><span class="fragment">gluster, </span><span class="fragment">linux, </span><span class="fragment">mysql, </span><span class="fragment">postgresql, </span></p>
+						<p><span class="fragment">memory-mapped-values (applications), </span></p>
+						<p><span class="fragment">prometheus endpoints (applications), </span></p>
+						<p><span class="fragment">perfevent, </span><span class="fragment">nfs clients, </span><span class="fragment">redis, </span><span class="fragment">samba, </span></p>
+						<p><span class="fragment">solaris, </span><span class="fragment">sql server, </span><span class="fragment">windows, </span></p>
 						<p><span class="fragment">...</span></p>
 					</section>
 				</section>
@@ -107,32 +102,34 @@
 						<h2>Installation</h2>
 						<span class="fragment">
 							<p>On RHEL/Fedora based systems:</p>
-							<pre><code># yum install pcp pcp-webjs* pcp-webapi*</pre></code>
+							<pre><code># yum install pcp</pre></code>
 						</span>
 						<span class="fragment">
 							<p>On Debian(*) based systems:</p>
-							<pre><code># apt-get install pcp pcp-webapi*</pre></code>
+							<pre><code># apt-get install pcp</pre></code>
 						</span>
 					</section>
 					<section>
 						<h2>Installation</h2>
 						<span class="fragment">
-							<pre><code class="bash"># systemctl enable pmcd pmlogger</code></pre>
+							<pre><code class="bash"># systemctl enable pmcd pmlogger pmie</code></pre>
 						</span>
 						<span class="fragment">
-							<pre><code class="bash"># systemctl start pmcd pmlogger</code></pre>
+							<pre><code class="bash"># systemctl start pmcd pmlogger pmie</code></pre>
 						</span>
 						<span class="fragment">
 							<pre><code class="bash">
 # pcp
 Performance Co-Pilot configuration on marquez.int.rhx:
 
- platform: Linux marquez.int.rhx 4.0.0-0.rc6.git1.1.fc23.x86_64 
- hardware: 8 cpus, 4 disks, 1 node, 11742MB RAM
+ platform: Linux marquez.int.rhx 4.12.9-300.fc26.x86_64 #1 SMP Fri Aug 25 13:09:43 UTC 2017 x86_64
+ hardware: 8 cpus, 4 disks, 1 node, 15674MB RAM
  timezone: CEST-2
  services: pmcd
-     pmcd: Version 3.10.3-1, 7 agents
+     pmcd: Version 3.12.2-1, 7 agents
      pmda: root pmcd proc xfs linux mmv jbd2
+ pmlogger: /var/log/pcp/pmlogger/marquez/20170729.00.10
+     pmie: /var/log/pcp/pmie/marquez/pmie.log
 							</pre></code>
 						</span>
 					</section>
@@ -142,7 +139,7 @@ Performance Co-Pilot configuration on marquez.int.rhx:
 							Web interface needed?
 						</span>
 						<span class="fragment">
-							<pre><code class="bash"># yum install pcp-webapi pcp-webjs</code></pre>
+							<pre><code class="bash"># yum install pcp-webapi pcp-webapp-vector pcp-webapp-grafana</code></pre>
 						</span>
 						<span class="fragment">
 							<pre><code class="bash"># systemctl enable pmwebd</code></pre>
@@ -158,7 +155,7 @@ Performance Co-Pilot configuration on marquez.int.rhx:
 					</section>
 					<section>
 						<h2>pminfo</h2>
-						<p class="fragment">Displays information about performance metrics</p>
+						<p class="fragment">Displays metadata about performance metrics</p>
 						<span class="fragment">
 							<pre><code class="bash">
 # pminfo | head -n3
@@ -170,7 +167,7 @@ cgroup.blkio.all.io_merged.sync
 						<span class="fragment">
 							<pre><code class="bash">
 # pminfo | wc -l
-1618
+2867
 							</pre></code>
 						</span>
 					</section>
@@ -231,13 +228,13 @@ samples:   all
                371392
 						</pre></code>
 						<p class="fragment">
-							All metrics are autocompleted when using bash-completion
+							Commands autocompleted using bash or zsh completion
 						</p>
 					</section>
 					<section>
 						<h2>Other CLI tools</h2>
-						<p class="fragment">Implementing your favourite monitoring tool is simple</p>
-						<p class="fragment">For example: pmiostat</p>
+						<p class="fragment">Implementing your prefered reporting tool is simple</p>
+						<p class="fragment">python scripts, for example: pcp iostat</p>
 						<span class="fragment">
 							<pre><code class="bash">
 # Timestamp              Device rrqm/s wrqm/s  r/s   w/s rkB/s wkB/s avgrq-sz avgqu-sz await r_await w_await %util
@@ -284,7 +281,7 @@ Mon Apr 27 21:59:45 2015 sdd       0.0    0.0  0.0   2.0   0.0  51.8    26.00   
 					<section>
 						<h2>Historical Data</h2>
 						<p class="fragment">
-							Most tools can work with archive files directly via the <em>-a &lt;archive_file&gt;</em>
+							Tools work with archive files directly via the <em>-a/--archive &lt;archive_file&gt;</em>
 							option.
 						</p>
 						<span class="fragment">
@@ -344,7 +341,7 @@ Ratio Threshold: > 50.00 or < 0.020
 						<ul>
 							<li class="fragment">pmlogextract - reduce, extract, concatenate and merge archives</li>
 							<li class="fragment">pmlogsummary - calculate averages of metrics and output summary</li>
-							<li class="fragment">Convert from and to other metric formats: collectl2pcp, iostat2pcp, mrtg2pcp, sar2pcp, ganglia2pcp, pcp2graphite</li>
+							<li class="fragment">Convert from and to other metric formats: collectl2pcp, iostat2pcp, mrtg2pcp, sar2pcp, ganglia2pcp, pcp2graphite, pcp2influxdb, pcp2json, pcp2xml</li>
 							<li class="fragment"> <a href="https://github.com/performancecopilot/pcp2pdf">pcp2pdf</a>
 							can be used to create a formatted PDF report out of an archive</li>
 						</ul>
@@ -459,23 +456,15 @@ network.interface.up 2 "lo" "eth0"
 						<h2>Other</h2>
 					</section>
 					<section>
-						<h2>Grafana</h2>
-						<img data-src="./images/pcp-grafana.png" alt="grafana-pcp"/>
-					</section>
-					<section>
-						<h2>JSON interface</h2>
-						<img data-src="./images/arduino-pcp2.png" alt="json-pcp"/>
-					</section>
-					<section>
-						<h2>Blinkenlights ;)</h2>
-						<img data-src="./images/pcp-blinkenlights.png" alt="blinkenlights-pcp"/>
-					</section>
-					<section>
-						<h2>Vector</h2>
+						<h2>Netflix</h2>
 						<img data-src="./images/vector.png" alt="vector-pcp"/>
 					</section>
 					<section>
 						<img data-src="./images/screenshot.png" alt="vector-screenshot"/>
+					</section>
+					<section>
+						<h2>Grafana</h2>
+						<img data-src="./images/grafana.png" alt="grafana-pcp"/>
 					</section>
 					<section>
 						<h2><a href="http://cockpit-project.org/">Cockpit</a></h2>
@@ -486,9 +475,11 @@ network.interface.up 2 "lo" "eth0"
 				<section>
 					<h1>Questions?</h1>
 					<p>
-						<a href="email:pcp@oss.sgi.com">pcp@oss.sgi.com</a> <br>
-						<a href="http://pcp.io">http://pcp.io</a> <br>
-						<a href="http://twitter.com/performancepcp">@performancepcp</a>
+						Mail: <a href="email:pcp@groups.io">pcp@groups.io</a> <br>
+						Web: <a href="http://pcp.io">http://pcp.io</a> <br><br>
+						IRC: <a href="http://freenode.org">#pcp on freenode</a> <br>
+						Twitter: <a href="http://twitter.com/performancepcp">@performancepcp</a> <br>
+						Slack: <a href="https://performancecopilot.slack.com">performancecopilot.slack.com</a> <br>
 					</p>
 				</section>
 
